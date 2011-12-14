@@ -30,8 +30,8 @@ public class CurvePanel extends JPanel {
 	
 	private final int SIDE_LENGTH = 300;
 	
-	private SCALING_MODE _mode = SCALING_MODE.LINEAR;
-	private float _exponent = 0.25f;
+	private SCALING_MODE _mode = SCALING_MODE.EXP;
+	private float _exponent = 0.333f;
 	private float[][] _controlPoints = { {0.8f, 1}, {1,1}, {1,1}, {1,1} }; 
 	
 

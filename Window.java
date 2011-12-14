@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import java.util.HashMap;
 
@@ -14,8 +15,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -40,10 +43,12 @@ public class Window extends JFrame {
 	private JCheckBox _antiAlias;
 	private JTextField _nodePath;
 	private JTextField _edgePath;
+	private JComboBox _nodeCS;
+	private JComboBox _edgeCS;
 	
 	private CurvePanelEnvironment _curvEnvNode;
 	private CurvePanelEnvironment _curvEnvEdge;
-
+	final JFileChooser fc = new JFileChooser();
 	
 	private JPanel _displayElementsPanel;
 	private HashMap<Integer, DisplayElementsPanel> _clientsDisplayElements;
@@ -52,7 +57,7 @@ public class Window extends JFrame {
 	public Window() {	
 
 		this.setTitle("Density Points Remote GUI");
-		this.setSize(800,630);		
+		this.setSize(800,710);		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.getContentPane().setBackground(Color.white);
 		this.setVisible(true);
@@ -68,8 +73,18 @@ public class Window extends JFrame {
 
 	}
 	
+	private void populateBoxes(JComboBox box) {
+		final String PATH_TO_BASE_DIR = "../HGvis/HGvis/_Tex/colorSchemes" ;
+		File dir = new File(PATH_TO_BASE_DIR);
+
+		File[] filesInDir = dir.listFiles();
+		
+		for (int i = 0; i < filesInDir.length; i++) {
+			box.addItem(filesInDir[i].getName());
+		}
+	}
+	
 	private void selectPath(boolean node) {
-		final JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(this);
 		
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -137,7 +152,6 @@ public class Window extends JFrame {
 			_edgePath.setFocusable(false);
 			fOptionPanel.add(_edgePath, c2);	
 			
-			c2.insets = new Insets(15,15,15,15);
 			c2.gridx = 1;
 			c2.gridy = 2;
 			JButton edgeAction = new JButton("...");
@@ -149,6 +163,30 @@ public class Window extends JFrame {
 				}
 			});
 			fOptionPanel.add(edgeAction, c2);
+			
+			c2.weightx = 1.0f;
+			c2.fill = GridBagConstraints.HORIZONTAL;
+			c2.gridx = 0;
+			c2.gridy = 3;
+			_nodeCS = new JComboBox();
+			populateBoxes(_nodeCS);
+			_nodeCS.setSelectedItem("node.tga");
+			fOptionPanel.add(_nodeCS, c2);
+			
+			c2.gridx = 1;
+			fOptionPanel.add(new JLabel("node cs"), c2);
+			
+			c2.insets = new Insets(15,15,15,15);
+			c2.gridx = 0;
+			c2.gridy = 4;
+			_edgeCS = new JComboBox();
+			populateBoxes(_edgeCS);
+			_edgeCS.setSelectedItem("edge.tga");
+			fOptionPanel.add(_edgeCS, c2);
+			
+			c2.gridx = 1;
+			fOptionPanel.add(new JLabel("edge cs"), c2);
+						
 			
 		c.gridy = 1;
 		c.gridx = 0;
@@ -205,6 +243,9 @@ public class Window extends JFrame {
 			ret._nodeFile = "";
 		}
 		
+		ret._nodeCS = _nodeCS.getSelectedItem().toString();
+		ret._edgeCS = _edgeCS.getSelectedItem().toString();
+		
 		return ret;
 	}
 		
@@ -222,6 +263,9 @@ public class Window extends JFrame {
 		if (opt._edgeFile.isEmpty()) {
 			_edgePath.setText(EDGE_EMPTY);
 		}		
+		
+		_nodeCS.setSelectedItem(opt._nodeCS);
+		_edgeCS.setSelectedItem(opt._edgeCS);
 	}
 	
 	

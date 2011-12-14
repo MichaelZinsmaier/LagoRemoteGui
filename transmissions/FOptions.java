@@ -7,6 +7,8 @@ public class FOptions {
 	public boolean _antiAlias;
 	public String _nodeFile;
 	public String _edgeFile;
+	public String _nodeCS;
+	public String _edgeCS;
 	
 	public void update(HashMap<String, String> updateMap) {
 		
@@ -18,7 +20,14 @@ public class FOptions {
 		} 
 		if (updateMap.containsKey("edgeFile")) {
 			_edgeFile = updateMap.get("edgeFile").substring(2);
-		} 				
+		} 			
+		if (updateMap.containsKey("nodeCS")) {
+			_nodeCS = updateMap.get("nodeCS");
+		}
+		if (updateMap.containsKey("edgeCS")) {
+			_edgeCS = updateMap.get("edgeCS");
+		}
+		
 	}
 	
 	
@@ -33,6 +42,8 @@ public class FOptions {
 		ret += " antiAlias$" + String.valueOf(_antiAlias);
 		ret += " nodeFile$" + "f." + _nodeFile;
 		ret += " edgeFile$" + "f." + _edgeFile;
+		ret += " nodeCS$" + _nodeCS;
+		ret += " edgeCS$" + _edgeCS;
 		
 		return ret;
 	}

@@ -33,7 +33,7 @@ public class CurvePanelEnvironment extends JPanel {
 
 	
 	private CurvePanel _curvePanel;
-	private float _customExp = 1.0f;
+	private float _customExp = 0.5f;
 
 	String _prefix;
 	
@@ -82,10 +82,24 @@ public class CurvePanelEnvironment extends JPanel {
 			labelStandard.setFont(new Font("Arial", Font.PLAIN, 16));
 			optionPanel.add(labelStandard, c3);
 		
-			//option1 standard linear
+			//option1 standard exp
 			c3.gridy = 1;
+			JRadioButton radioStandardExp = new JRadioButton("^ (x^0.333)");
+			radioStandardExp.setSelected(true);
+			radioStandardExp.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					if (((JRadioButton)e.getSource()).isSelected()) {
+						_curvePanel.setExponent(0.25f);
+					}
+				}			
+			});
+			optionPanel.add(radioStandardExp, c3);
+			
+			//option2 standard linear
+			c3.gridy = 2;
 			JRadioButton radioStandardLinear = new JRadioButton("linear (cut > 0.8)");
-			radioStandardLinear.setSelected(true);
+			radioStandardLinear.setSelected(false);
 			radioStandardLinear.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent e) {
@@ -96,19 +110,7 @@ public class CurvePanelEnvironment extends JPanel {
 			});
 			optionPanel.add(radioStandardLinear, c3);
 			
-			//option2 standard exp
-			c3.gridy = 2;
-			JRadioButton radioStandardExp = new JRadioButton("^ (x^0.25)");
-			radioStandardExp.setSelected(false);
-			radioStandardExp.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent e) {
-					if (((JRadioButton)e.getSource()).isSelected()) {
-						_curvePanel.setExponent(0.25f);
-					}
-				}			
-			});
-			optionPanel.add(radioStandardExp, c3);
+
 
 			c3.gridy = 3;
 			optionPanel.add(Box.createRigidArea(new Dimension(0,10)), c3);		
