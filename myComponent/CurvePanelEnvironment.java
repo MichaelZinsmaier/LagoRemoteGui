@@ -126,7 +126,7 @@ public class CurvePanelEnvironment extends JPanel {
 			c3.gridwidth = 1;	
 			c3.gridy = 5;
 			c3.gridx = 0;
-			final JTextField textCustomExp = new JTextField("1.0",5);
+			final JTextField textCustomExp = new JTextField(String.valueOf(_customExp),5);
 			final JRadioButton radioCustomExp = new JRadioButton("x^");
 			
 			radioCustomExp.addChangeListener(new ChangeListener() {

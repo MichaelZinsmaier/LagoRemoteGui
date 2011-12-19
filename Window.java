@@ -41,6 +41,7 @@ public class Window extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JCheckBox _antiAlias;
+	private JCheckBox _adaptiveScaleBars;
 	private JTextField _nodePath;
 	private JTextField _edgePath;
 	private JComboBox _nodeCS;
@@ -127,15 +128,20 @@ public class Window extends JFrame {
 			_antiAlias.setSelected(true);
 			fOptionPanel.add(_antiAlias, c2);
 
+			c2.gridx = 0;
+			c2.gridy = 1;	
+			_adaptiveScaleBars = new JCheckBox("adaptive scalebars");
+			_adaptiveScaleBars.setSelected(false);
+			fOptionPanel.add(_adaptiveScaleBars, c2);
 			
 			c2.gridx = 0;
-			c2.gridy = 1;
+			c2.gridy = 2;
 			_nodePath = new JTextField(NODE_EMPTY, 18);
 			_nodePath.setFocusable(false);		
 			fOptionPanel.add(_nodePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 1;
+			c2.gridy = 2;
 			JButton nodeAction = new JButton("...");
 			nodeAction.addActionListener(new ActionListener() {
 				
@@ -147,13 +153,13 @@ public class Window extends JFrame {
 			fOptionPanel.add(nodeAction, c2);
 
 			c2.gridx = 0;
-			c2.gridy = 2;	
+			c2.gridy = 3;	
 			_edgePath = new JTextField(EDGE_EMPTY, 18);
 			_edgePath.setFocusable(false);
 			fOptionPanel.add(_edgePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 2;
+			c2.gridy = 3;
 			JButton edgeAction = new JButton("...");
 			edgeAction.addActionListener(new ActionListener() {
 				
@@ -167,7 +173,7 @@ public class Window extends JFrame {
 			c2.weightx = 1.0f;
 			c2.fill = GridBagConstraints.HORIZONTAL;
 			c2.gridx = 0;
-			c2.gridy = 3;
+			c2.gridy = 4;
 			_nodeCS = new JComboBox();
 			populateBoxes(_nodeCS);
 			_nodeCS.setSelectedItem("node.tga");
@@ -178,7 +184,7 @@ public class Window extends JFrame {
 			
 			c2.insets = new Insets(15,15,15,15);
 			c2.gridx = 0;
-			c2.gridy = 4;
+			c2.gridy = 5;
 			_edgeCS = new JComboBox();
 			populateBoxes(_edgeCS);
 			_edgeCS.setSelectedItem("edge.tga");
@@ -234,6 +240,8 @@ public class Window extends JFrame {
 		FOptions ret = new FOptions();
 		
 		ret._antiAlias = _antiAlias.isSelected();
+		ret._adaptiveScaleBars = _adaptiveScaleBars.isSelected();
+		
 		ret._edgeFile = _edgePath.getText();
 		if (ret._edgeFile.equals(EDGE_EMPTY)) {
 			ret._edgeFile = "";
@@ -255,6 +263,7 @@ public class Window extends JFrame {
 	 */
 	public void setFOptions(FOptions opt) {
 		_antiAlias.setSelected(opt._antiAlias);
+		_adaptiveScaleBars.setSelected(opt._adaptiveScaleBars);
 		_nodePath.setText(opt._nodeFile);
 		if (opt._nodeFile.isEmpty()) {
 			_nodePath.setText(NODE_EMPTY);

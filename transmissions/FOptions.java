@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class FOptions {
 	
 	public boolean _antiAlias;
+	public boolean _adaptiveScaleBars;
 	public String _nodeFile;
 	public String _edgeFile;
 	public String _nodeCS;
@@ -14,6 +15,9 @@ public class FOptions {
 		
 		if (updateMap.containsKey("antiAlias")) {
 			_antiAlias = (Boolean.parseBoolean(updateMap.get("antiAlias")));
+		}
+		if (updateMap.containsKey("adaptiveScaleBars")) {
+			_adaptiveScaleBars = (Boolean.parseBoolean(updateMap.get("adaptiveScaleBars")));
 		}
 		if (updateMap.containsKey("nodeFile")) {
 			_nodeFile = updateMap.get("nodeFile").substring(2);
@@ -40,6 +44,7 @@ public class FOptions {
 		String ret = "";
 		
 		ret += " antiAlias$" + String.valueOf(_antiAlias);
+		ret += " adaptiveScaleBars$" + String.valueOf(_adaptiveScaleBars);
 		ret += " nodeFile$" + "f." + _nodeFile;
 		ret += " edgeFile$" + "f." + _edgeFile;
 		ret += " nodeCS$" + _nodeCS;
