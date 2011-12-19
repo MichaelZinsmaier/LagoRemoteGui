@@ -131,7 +131,7 @@ public class Window extends JFrame {
 			c2.gridx = 0;
 			c2.gridy = 1;	
 			_adaptiveScaleBars = new JCheckBox("adaptive scalebars");
-			_adaptiveScaleBars.setSelected(false);
+			_adaptiveScaleBars.setSelected(true);
 			fOptionPanel.add(_adaptiveScaleBars, c2);
 			
 			c2.gridx = 0;

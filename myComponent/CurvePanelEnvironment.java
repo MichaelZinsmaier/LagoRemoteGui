@@ -90,7 +90,7 @@ public class CurvePanelEnvironment extends JPanel {
 				@Override
 				public void stateChanged(ChangeEvent e) {
 					if (((JRadioButton)e.getSource()).isSelected()) {
-						_curvePanel.setExponent(0.25f);
+						_curvePanel.setExponent(0.333f);
 					}
 				}			
 			});
