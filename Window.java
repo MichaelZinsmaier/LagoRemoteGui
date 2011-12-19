@@ -46,9 +46,11 @@ public class Window extends JFrame {
 	private JTextField _edgePath;
 	private JComboBox _nodeCS;
 	private JComboBox _edgeCS;
+	private JComboBox _labelCS;
 	
 	private CurvePanelEnvironment _curvEnvNode;
 	private CurvePanelEnvironment _curvEnvEdge;
+	private CurvePanelEnvironment _curvEnvLabel;
 	final JFileChooser fc = new JFileChooser();
 	
 	private JPanel _displayElementsPanel;
@@ -58,7 +60,7 @@ public class Window extends JFrame {
 	public Window() {	
 
 		this.setTitle("Density Points Remote GUI");
-		this.setSize(800,710);		
+		this.setSize(800,770);		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.getContentPane().setBackground(Color.white);
 		this.setVisible(true);
@@ -182,7 +184,7 @@ public class Window extends JFrame {
 			c2.gridx = 1;
 			fOptionPanel.add(new JLabel("node cs"), c2);
 			
-			c2.insets = new Insets(15,15,15,15);
+
 			c2.gridx = 0;
 			c2.gridy = 5;
 			_edgeCS = new JComboBox();
@@ -192,15 +194,28 @@ public class Window extends JFrame {
 			
 			c2.gridx = 1;
 			fOptionPanel.add(new JLabel("edge cs"), c2);
-						
+
+			
+			c2.insets = new Insets(15,15,15,15);
+			c2.gridx = 0;
+			c2.gridy = 6;
+			_labelCS = new JComboBox();
+			populateBoxes(_labelCS);
+			_labelCS.setSelectedItem("label.tga");
+			fOptionPanel.add(_labelCS, c2);
+			
+			c2.gridx = 1;
+			fOptionPanel.add(new JLabel("label cs"), c2);			
 			
 		c.gridy = 1;
 		c.gridx = 0;
 		JTabbedPane curveTabs = new JTabbedPane();
 		_curvEnvEdge = new CurvePanelEnvironment("E.");
 		_curvEnvNode = new CurvePanelEnvironment("N.");
+		_curvEnvLabel = new CurvePanelEnvironment("L.");
 		curveTabs.add("node scaling", _curvEnvNode);
 		curveTabs.add("edge scaling", _curvEnvEdge);
+		curveTabs.add("label scaling", _curvEnvLabel);
 		this.add(curveTabs, c);
 			
 			
@@ -232,6 +247,12 @@ public class Window extends JFrame {
 		return _curvEnvEdge.getScalingOptions();
 	}
 	
+	/**
+	 * @return read the label scaling mode from the GUI
+	 */
+	public ScalingOptions getLabelScalingOptions() {
+		return _curvEnvLabel.getScalingOptions();
+	}
 
 	/**
 	 * @return read the options from the GUI
@@ -253,6 +274,7 @@ public class Window extends JFrame {
 		
 		ret._nodeCS = _nodeCS.getSelectedItem().toString();
 		ret._edgeCS = _edgeCS.getSelectedItem().toString();
+		ret._labelCS = _labelCS.getSelectedItem().toString();
 		
 		return ret;
 	}
@@ -275,6 +297,7 @@ public class Window extends JFrame {
 		
 		_nodeCS.setSelectedItem(opt._nodeCS);
 		_edgeCS.setSelectedItem(opt._edgeCS);
+		_labelCS.setSelectedItem(opt._labelCS);
 	}
 	
 	

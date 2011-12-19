@@ -57,7 +57,8 @@ public class ClientHandlerThread extends Thread{
 							String output = "push# " +
 												_window.getFOptions().toCommandString() +
 												" target$node" + _window.getNodeScalingOptions().toCommandString() +
-												" target$edge" + _window.getEdgeScalingOptions().toCommandString();
+												" target$edge" + _window.getEdgeScalingOptions().toCommandString() + 
+												" target$label" + _window.getLabelScalingOptions().toCommandString();
 							out.println(output);
 						} else 
 						if (cmd.equals("push")) {

@@ -40,6 +40,7 @@ public class CurvePanelEnvironment extends JPanel {
 	public CurvePanelEnvironment(String prefix) {
 		_prefix = prefix;
 		addContent();
+				
 		this.setBorder(BorderFactory.createLineBorder(Color.gray, 2));
 	}
 	
@@ -85,7 +86,9 @@ public class CurvePanelEnvironment extends JPanel {
 			//option1 standard exp
 			c3.gridy = 1;
 			JRadioButton radioStandardExp = new JRadioButton("^ (x^0.333)");
-			radioStandardExp.setSelected(true);
+			if (!_prefix.equals("L.")) {
+				radioStandardExp.setSelected(true);
+			}
 			radioStandardExp.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent e) {
@@ -126,8 +129,12 @@ public class CurvePanelEnvironment extends JPanel {
 			c3.gridwidth = 1;	
 			c3.gridy = 5;
 			c3.gridx = 0;
+		
 			final JTextField textCustomExp = new JTextField(String.valueOf(_customExp),5);
 			final JRadioButton radioCustomExp = new JRadioButton("x^");
+			if (_prefix.equals("L.")) {
+				radioCustomExp.setSelected(true);	
+			}	
 			
 			radioCustomExp.addChangeListener(new ChangeListener() {
 				@Override

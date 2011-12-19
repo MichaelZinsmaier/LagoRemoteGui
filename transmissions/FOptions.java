@@ -10,6 +10,7 @@ public class FOptions {
 	public String _edgeFile;
 	public String _nodeCS;
 	public String _edgeCS;
+	public String _labelCS;
 	
 	public void update(HashMap<String, String> updateMap) {
 		
@@ -28,8 +29,8 @@ public class FOptions {
 		if (updateMap.containsKey("nodeCS")) {
 			_nodeCS = updateMap.get("nodeCS");
 		}
-		if (updateMap.containsKey("edgeCS")) {
-			_edgeCS = updateMap.get("edgeCS");
+		if (updateMap.containsKey("labelCS")) {
+			_labelCS = updateMap.get("labelCS");
 		}
 		
 	}
@@ -49,6 +50,7 @@ public class FOptions {
 		ret += " edgeFile$" + "f." + _edgeFile;
 		ret += " nodeCS$" + _nodeCS;
 		ret += " edgeCS$" + _edgeCS;
+		ret += " labelCS$" + _labelCS;
 		
 		return ret;
 	}
