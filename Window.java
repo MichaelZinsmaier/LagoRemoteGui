@@ -42,8 +42,10 @@ public class Window extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JCheckBox _antiAlias;
 	private JCheckBox _adaptiveScaleBars;
+	private JCheckBox _showLabels;	
 	private JTextField _nodePath;
 	private JTextField _edgePath;
+	private JTextField _labelCount;
 	private JComboBox _nodeCS;
 	private JComboBox _edgeCS;
 	private JComboBox _labelCS;
@@ -137,13 +139,25 @@ public class Window extends JFrame {
 			fOptionPanel.add(_adaptiveScaleBars, c2);
 			
 			c2.gridx = 0;
+			c2.gridy = 2;	
+			_showLabels = new JCheckBox("show labels");
+			_showLabels.setSelected(true);
+			fOptionPanel.add(_showLabels, c2);
+			
+			c2.gridx = 1;
 			c2.gridy = 2;
+			_labelCount = new JTextField("20");
+			_labelCount.setColumns(5);
+			fOptionPanel.add(_labelCount, c2);
+			
+			c2.gridx = 0;
+			c2.gridy = 3;
 			_nodePath = new JTextField(NODE_EMPTY, 18);
 			_nodePath.setFocusable(false);		
 			fOptionPanel.add(_nodePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 2;
+			c2.gridy = 3;
 			JButton nodeAction = new JButton("...");
 			nodeAction.addActionListener(new ActionListener() {
 				
@@ -155,13 +169,13 @@ public class Window extends JFrame {
 			fOptionPanel.add(nodeAction, c2);
 
 			c2.gridx = 0;
-			c2.gridy = 3;	
+			c2.gridy = 4;	
 			_edgePath = new JTextField(EDGE_EMPTY, 18);
 			_edgePath.setFocusable(false);
 			fOptionPanel.add(_edgePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 3;
+			c2.gridy = 4;
 			JButton edgeAction = new JButton("...");
 			edgeAction.addActionListener(new ActionListener() {
 				
@@ -171,41 +185,46 @@ public class Window extends JFrame {
 				}
 			});
 			fOptionPanel.add(edgeAction, c2);
-			
-			c2.weightx = 1.0f;
-			c2.fill = GridBagConstraints.HORIZONTAL;
-			c2.gridx = 0;
-			c2.gridy = 4;
-			_nodeCS = new JComboBox();
-			populateBoxes(_nodeCS);
-			_nodeCS.setSelectedItem("node.tga");
-			fOptionPanel.add(_nodeCS, c2);
-			
-			c2.gridx = 1;
-			fOptionPanel.add(new JLabel("node cs"), c2);
-			
 
-			c2.gridx = 0;
-			c2.gridy = 5;
-			_edgeCS = new JComboBox();
-			populateBoxes(_edgeCS);
-			_edgeCS.setSelectedItem("edge.tga");
-			fOptionPanel.add(_edgeCS, c2);
-			
-			c2.gridx = 1;
-			fOptionPanel.add(new JLabel("edge cs"), c2);
-
-			
+			JPanel combos = new JPanel(new GridBagLayout());
+			GridBagConstraints c3 = new GridBagConstraints();
 			c2.insets = new Insets(15,15,15,15);
 			c2.gridx = 0;
-			c2.gridy = 6;
-			_labelCS = new JComboBox();
-			populateBoxes(_labelCS);
-			_labelCS.setSelectedItem("label.tga");
-			fOptionPanel.add(_labelCS, c2);
+			c2.gridy = 5;
+			c2.gridwidth = 2;
+			fOptionPanel.add(combos, c2);
 			
-			c2.gridx = 1;
-			fOptionPanel.add(new JLabel("label cs"), c2);			
+				c3.gridx = 0;
+				c3.gridy = 0;
+				combos.add(new JLabel("node cs"), c3);
+
+				c3.gridx = 1;
+				combos.add(new JLabel("edge cs"), c3);
+
+				c3.gridx = 2;
+				combos.add(new JLabel("label cs"), c3);			
+
+			
+				c3.gridx = 0;
+				c3.gridy = 5;
+				_nodeCS = new JComboBox();
+				populateBoxes(_nodeCS);
+				_nodeCS.setSelectedItem("node.tga");
+				combos.add(_nodeCS, c3);
+			
+	
+				c3.gridx = 1;
+				_edgeCS = new JComboBox();
+				populateBoxes(_edgeCS);
+				_edgeCS.setSelectedItem("edge.tga");
+				combos.add(_edgeCS, c3);
+						
+				c3.gridx = 2;
+				_labelCS = new JComboBox();
+				populateBoxes(_labelCS);
+				_labelCS.setSelectedItem("label.tga");
+				combos.add(_labelCS, c3);
+			
 			
 		c.gridy = 1;
 		c.gridx = 0;
@@ -262,6 +281,21 @@ public class Window extends JFrame {
 		
 		ret._antiAlias = _antiAlias.isSelected();
 		ret._adaptiveScaleBars = _adaptiveScaleBars.isSelected();
+		ret._showLabels = _showLabels.isSelected();		
+		
+		int labels;
+		try {
+			labels = Integer.parseInt(_labelCount.getText());
+		} catch(Exception e) {
+			labels = 20;
+			_labelCount.setText("20");
+		}		
+		if (labels <= 0) {
+			labels = 20;
+			_labelCount.setText("20");			
+		}
+		
+		ret._labelCount = labels;
 		
 		ret._edgeFile = _edgePath.getText();
 		if (ret._edgeFile.equals(EDGE_EMPTY)) {
@@ -286,6 +320,10 @@ public class Window extends JFrame {
 	public void setFOptions(FOptions opt) {
 		_antiAlias.setSelected(opt._antiAlias);
 		_adaptiveScaleBars.setSelected(opt._adaptiveScaleBars);
+		_showLabels.setSelected(opt._showLabels);
+		
+		_labelCount.setText(String.valueOf(opt._labelCount));
+		
 		_nodePath.setText(opt._nodeFile);
 		if (opt._nodeFile.isEmpty()) {
 			_nodePath.setText(NODE_EMPTY);

@@ -86,9 +86,8 @@ public class CurvePanelEnvironment extends JPanel {
 			//option1 standard exp
 			c3.gridy = 1;
 			JRadioButton radioStandardExp = new JRadioButton("^ (x^0.333)");
-			if (!_prefix.equals("L.")) {
-				radioStandardExp.setSelected(true);
-			}
+			radioStandardExp.setSelected(true);
+
 			radioStandardExp.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent e) {
@@ -132,9 +131,6 @@ public class CurvePanelEnvironment extends JPanel {
 		
 			final JTextField textCustomExp = new JTextField(String.valueOf(_customExp),5);
 			final JRadioButton radioCustomExp = new JRadioButton("x^");
-			if (_prefix.equals("L.")) {
-				radioCustomExp.setSelected(true);	
-			}	
 			
 			radioCustomExp.addChangeListener(new ChangeListener() {
 				@Override

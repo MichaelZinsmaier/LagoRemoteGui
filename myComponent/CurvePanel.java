@@ -42,11 +42,7 @@ public class CurvePanel extends JPanel {
 	
 	public CurvePanel(String prefix) {
 		_prefix = prefix;
-		
-		if (_prefix.equals("L.")) {
-			_exponent = 0.5f;
-		}
-		
+	
 		Dimension dim = new Dimension(SIDE_LENGTH, SIDE_LENGTH);	
 		this.setSize(dim);
 		this.setMaximumSize(dim);

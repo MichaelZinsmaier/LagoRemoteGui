@@ -6,6 +6,8 @@ public class FOptions {
 	
 	public boolean _antiAlias;
 	public boolean _adaptiveScaleBars;
+	public int _labelCount;
+	public boolean _showLabels;
 	public String _nodeFile;
 	public String _edgeFile;
 	public String _nodeCS;
@@ -32,7 +34,12 @@ public class FOptions {
 		if (updateMap.containsKey("labelCS")) {
 			_labelCS = updateMap.get("labelCS");
 		}
-		
+		if (updateMap.containsKey("showLabels")) {
+			_showLabels = (Boolean.parseBoolean(updateMap.get("showLabels")));
+		}
+		if (updateMap.containsKey("labelCount")) {
+			_labelCount = Integer.valueOf(updateMap.get("labelCount"));
+		}
 	}
 	
 	
@@ -51,6 +58,8 @@ public class FOptions {
 		ret += " nodeCS$" + _nodeCS;
 		ret += " edgeCS$" + _edgeCS;
 		ret += " labelCS$" + _labelCS;
+		ret += " showLabels$" + _showLabels;
+		ret += " labelCount$" + _labelCount;
 		
 		return ret;
 	}
