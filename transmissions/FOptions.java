@@ -8,6 +8,8 @@ public class FOptions {
 	public boolean _adaptiveScaleBars;
 	public int _labelCount;
 	public boolean _showLabels;
+	public boolean _animation;
+	public float _aniDuration;
 	public String _nodeFile;
 	public String _edgeFile;
 	public String _nodeCS;
@@ -40,6 +42,12 @@ public class FOptions {
 		if (updateMap.containsKey("labelCount")) {
 			_labelCount = Integer.valueOf(updateMap.get("labelCount"));
 		}
+		if (updateMap.containsKey("animation")) {
+			_animation = (Boolean.parseBoolean(updateMap.get("animation")));
+		}
+		if (updateMap.containsKey("aniDuration")) {
+			_aniDuration = Float.valueOf(updateMap.get("aniDuration"));
+		}		
 	}
 	
 	
@@ -58,8 +66,10 @@ public class FOptions {
 		ret += " nodeCS$" + _nodeCS;
 		ret += " edgeCS$" + _edgeCS;
 		ret += " labelCS$" + _labelCS;
-		ret += " showLabels$" + _showLabels;
+		ret += " showLabels$" + String.valueOf(_showLabels);
 		ret += " labelCount$" + _labelCount;
+		ret += " animation$" + String.valueOf(_animation);
+		ret += " aniDuration$" + _aniDuration;
 		
 		return ret;
 	}

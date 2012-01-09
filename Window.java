@@ -42,10 +42,12 @@ public class Window extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JCheckBox _antiAlias;
 	private JCheckBox _adaptiveScaleBars;
-	private JCheckBox _showLabels;	
+	private JCheckBox _showLabels;
+	private JCheckBox _animation;
 	private JTextField _nodePath;
 	private JTextField _edgePath;
 	private JTextField _labelCount;
+	private JTextField _aniDuration;
 	private JComboBox _nodeCS;
 	private JComboBox _edgeCS;
 	private JComboBox _labelCS;
@@ -149,15 +151,28 @@ public class Window extends JFrame {
 			_labelCount = new JTextField("20");
 			_labelCount.setColumns(5);
 			fOptionPanel.add(_labelCount, c2);
+
+			c2.gridx = 0;
+			c2.gridy = 3;	
+			_animation = new JCheckBox("activate Animation");
+			_animation.setSelected(true);
+			fOptionPanel.add(_animation, c2);
+			
+			c2.gridx = 1;
+			c2.gridy = 3;
+			_aniDuration = new JTextField("2.0");
+			_aniDuration.setColumns(5);
+			fOptionPanel.add(_aniDuration, c2);
+			
 			
 			c2.gridx = 0;
-			c2.gridy = 3;
+			c2.gridy = 4;
 			_nodePath = new JTextField(NODE_EMPTY, 18);
 			_nodePath.setFocusable(false);		
 			fOptionPanel.add(_nodePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 3;
+			c2.gridy = 4;
 			JButton nodeAction = new JButton("...");
 			nodeAction.addActionListener(new ActionListener() {
 				
@@ -169,13 +184,13 @@ public class Window extends JFrame {
 			fOptionPanel.add(nodeAction, c2);
 
 			c2.gridx = 0;
-			c2.gridy = 4;	
+			c2.gridy = 5;	
 			_edgePath = new JTextField(EDGE_EMPTY, 18);
 			_edgePath.setFocusable(false);
 			fOptionPanel.add(_edgePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 4;
+			c2.gridy = 5;
 			JButton edgeAction = new JButton("...");
 			edgeAction.addActionListener(new ActionListener() {
 				
@@ -190,7 +205,7 @@ public class Window extends JFrame {
 			GridBagConstraints c3 = new GridBagConstraints();
 			c2.insets = new Insets(15,15,15,15);
 			c2.gridx = 0;
-			c2.gridy = 5;
+			c2.gridy = 6;
 			c2.gridwidth = 2;
 			fOptionPanel.add(combos, c2);
 			
@@ -281,7 +296,8 @@ public class Window extends JFrame {
 		
 		ret._antiAlias = _antiAlias.isSelected();
 		ret._adaptiveScaleBars = _adaptiveScaleBars.isSelected();
-		ret._showLabels = _showLabels.isSelected();		
+		ret._showLabels = _showLabels.isSelected();
+		ret._animation = _animation.isSelected();
 		
 		int labels;
 		try {
@@ -296,6 +312,21 @@ public class Window extends JFrame {
 		}
 		
 		ret._labelCount = labels;
+		
+		
+		float duration;
+		try {
+			duration = Float.parseFloat(_aniDuration.getText());
+		} catch(Exception e) {
+			duration = 2.0f;
+			_aniDuration.setText("2.0");
+		}		
+		if (duration <= 0.0f) {
+			duration = 2.0f;
+			_aniDuration.setText("2.0");
+		}
+		
+		ret._aniDuration = duration;
 		
 		ret._edgeFile = _edgePath.getText();
 		if (ret._edgeFile.equals(EDGE_EMPTY)) {
