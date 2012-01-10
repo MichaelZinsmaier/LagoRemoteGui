@@ -23,8 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-import myComponent.CurvePanelEnvironment;
-import myComponent.DisplayElementsPanel;
+import myComponents.CurvePanelEnvironment;
+import myComponents.DisplayElementsPanel;
+import myComponents.LockGroup;
 
 import transmissions.DisplayElements;
 import transmissions.FOptions;
@@ -51,6 +52,7 @@ public class Window extends JFrame {
 	private JComboBox _nodeCS;
 	private JComboBox _edgeCS;
 	private JComboBox _labelCS;
+	private LockGroup _lockGroup;
 	
 	private CurvePanelEnvironment _curvEnvNode;
 	private CurvePanelEnvironment _curvEnvEdge;
@@ -64,7 +66,7 @@ public class Window extends JFrame {
 	public Window() {	
 
 		this.setTitle("Density Points Remote GUI");
-		this.setSize(800,770);		
+		this.setSize(800,830);		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.getContentPane().setBackground(Color.white);
 		this.setVisible(true);
@@ -164,15 +166,21 @@ public class Window extends JFrame {
 			_aniDuration.setColumns(5);
 			fOptionPanel.add(_aniDuration, c2);
 			
-			
 			c2.gridx = 0;
+			c2.gridwidth = 2;
 			c2.gridy = 4;
+			_lockGroup = new LockGroup();
+			fOptionPanel.add(_lockGroup, c2);
+			
+			c2.gridwidth = 1;
+			c2.gridx = 0;
+			c2.gridy = 5;
 			_nodePath = new JTextField(NODE_EMPTY, 18);
 			_nodePath.setFocusable(false);		
 			fOptionPanel.add(_nodePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 4;
+			c2.gridy = 5;
 			JButton nodeAction = new JButton("...");
 			nodeAction.addActionListener(new ActionListener() {
 				
@@ -184,13 +192,13 @@ public class Window extends JFrame {
 			fOptionPanel.add(nodeAction, c2);
 
 			c2.gridx = 0;
-			c2.gridy = 5;	
+			c2.gridy = 6;	
 			_edgePath = new JTextField(EDGE_EMPTY, 18);
 			_edgePath.setFocusable(false);
 			fOptionPanel.add(_edgePath, c2);	
 			
 			c2.gridx = 1;
-			c2.gridy = 5;
+			c2.gridy = 6;
 			JButton edgeAction = new JButton("...");
 			edgeAction.addActionListener(new ActionListener() {
 				
@@ -205,7 +213,7 @@ public class Window extends JFrame {
 			GridBagConstraints c3 = new GridBagConstraints();
 			c2.insets = new Insets(15,15,15,15);
 			c2.gridx = 0;
-			c2.gridy = 6;
+			c2.gridy = 7;
 			c2.gridwidth = 2;
 			fOptionPanel.add(combos, c2);
 			
@@ -341,6 +349,10 @@ public class Window extends JFrame {
 		ret._edgeCS = _edgeCS.getSelectedItem().toString();
 		ret._labelCS = _labelCS.getSelectedItem().toString();
 		
+		ret._lock = _lockGroup.getLocked();
+		ret._nodeMax = _lockGroup.getNodeMax();
+		ret._edgeMax = _lockGroup.getEdgeMax();
+		
 		return ret;
 	}
 		
@@ -367,6 +379,8 @@ public class Window extends JFrame {
 		_nodeCS.setSelectedItem(opt._nodeCS);
 		_edgeCS.setSelectedItem(opt._edgeCS);
 		_labelCS.setSelectedItem(opt._labelCS);
+		
+		_lockGroup.setData(opt._lock, opt._overLock, opt._nodeMax, opt._edgeMax);
 	}
 	
 	

@@ -15,6 +15,10 @@ public class FOptions {
 	public String _nodeCS;
 	public String _edgeCS;
 	public String _labelCS;
+	public boolean _lock;
+	public boolean _overLock;//pull only
+	public float _nodeMax;
+	public float _edgeMax;
 	
 	public void update(HashMap<String, String> updateMap) {
 		
@@ -47,7 +51,19 @@ public class FOptions {
 		}
 		if (updateMap.containsKey("aniDuration")) {
 			_aniDuration = Float.valueOf(updateMap.get("aniDuration"));
-		}		
+		}
+		if (updateMap.containsKey("nodeMax")) {
+			_nodeMax = Float.valueOf(updateMap.get("nodeMax"));
+		}
+		if (updateMap.containsKey("edgeMax")) {
+			_edgeMax = Float.valueOf(updateMap.get("edgeMax"));
+		}
+		if (updateMap.containsKey("lockMax")) {
+			_lock = (Boolean.parseBoolean(updateMap.get("lockMax")));
+		}
+		if (updateMap.containsKey("overLock")) {
+			_overLock = (Boolean.parseBoolean(updateMap.get("overLock")));
+		}
 	}
 	
 	
@@ -70,8 +86,10 @@ public class FOptions {
 		ret += " labelCount$" + _labelCount;
 		ret += " animation$" + String.valueOf(_animation);
 		ret += " aniDuration$" + _aniDuration;
-		
-		return ret;
+		ret += " nodeMax$" + _nodeMax;
+		ret += " edgeMax$" + _edgeMax;
+		ret += " lockMax$" + _lock;
+		return ret; 
 	}
 	
 }

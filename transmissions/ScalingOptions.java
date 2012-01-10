@@ -1,6 +1,6 @@
 package transmissions;
 
-import myComponent.CurvePanel.SCALING_MODE;
+import myComponents.CurvePanel.SCALING_MODE;
 
 public class ScalingOptions {
 	
