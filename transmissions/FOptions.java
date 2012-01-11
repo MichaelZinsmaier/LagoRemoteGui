@@ -88,7 +88,7 @@ public class FOptions {
 		ret += " aniDuration$" + _aniDuration;
 		ret += " nodeMax$" + _nodeMax;
 		ret += " edgeMax$" + _edgeMax;
-		ret += " lockMax$" + _lock;
+		ret += " lockMax$" + String.valueOf(_lock);
 		return ret; 
 	}
 	

@@ -6,12 +6,16 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class LockGroup extends JPanel {
 
@@ -21,6 +25,9 @@ public class LockGroup extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	enum LOCK_STATE {LOCKED, UNLOCKED, LOCKED_OVER};
+	
+	private float _nodeMax = 1.0f;
+	private float _edgeMax = 1.0f;
 	
 	private JLabel _nodeLabel = new JLabel("nodeMax:");
 	private JLabel _edgeLabel = new JLabel("edgeMax:");
@@ -54,6 +61,22 @@ public class LockGroup extends JPanel {
 		
 		c.gridx = 1;
 		_nodeText.setColumns(9);
+		_nodeText.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				updateText(_nodeText.getText(), true);
+			}			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+			}
+		});
+		_nodeText.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				updateText(_nodeText.getText(), true);
+			}
+		});
+		
 		add(_nodeText, c);
 
 		c.gridx = 0;
@@ -62,6 +85,21 @@ public class LockGroup extends JPanel {
 
 		c.gridx = 1;
 		_edgeText.setColumns(9);
+		_edgeText.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				updateText(_edgeText.getText(), false);
+			}			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+			}
+		});	
+		_edgeText.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				updateText(_edgeText.getText(), false);
+			}
+		});		
 		add(_edgeText, c);
 		
 		c.insets = new Insets(0,35,0,0);
@@ -95,35 +133,29 @@ public class LockGroup extends JPanel {
 			_lockButton.setIcon(_unlocked);
 		}
 		
+		_nodeMax = nodeMax;
+		_edgeMax = edgeMax;
 		_nodeText.setText(String.valueOf(nodeMax));
 		_edgeText.setText(String.valueOf(edgeMax));
 	}
+
 	
 	public boolean getLocked() {
 		return !(_lockState.equals(LOCK_STATE.UNLOCKED));
 	}
 	
 	public float getNodeMax() {
-		float max;
-		
-		try {
-			max = Float.parseFloat(_nodeText.getText());
-		} catch (Exception e) {
-			max = 1.0f;
-		}
-		
-		if (max <= 0.0f) {
-			max = 1.0f;
-		}
-		
-		return max;
+		return _nodeMax;
 	}
 
 	public float getEdgeMax() {
+		return _edgeMax;
+	}	
+	
+	private void updateText(String newVal, boolean nodeField) {
 		float max;
-		
 		try {
-			max = Float.parseFloat(_edgeText.getText());
+			max = Float.parseFloat(newVal);
 		} catch (Exception e) {
 			max = 1.0f;
 		}
@@ -132,8 +164,13 @@ public class LockGroup extends JPanel {
 			max = 1.0f;
 		}
 		
-		return max;
-	}	
+		if (nodeField) {	
+			_nodeMax = max;
+		} else {
+			_edgeMax = max;
+		}
+		
+	}
 	
 	private void changeLockState() {
 		if (_lockState.equals(LOCK_STATE.UNLOCKED)) {
