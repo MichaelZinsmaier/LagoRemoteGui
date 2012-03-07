@@ -66,7 +66,7 @@ public class Window extends JFrame {
 	public Window() {	
 
 		this.setTitle("Density Points Remote GUI");
-		this.setSize(800,830);		
+		this.setSize(956,830);		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.getContentPane().setBackground(Color.white);
 		this.setVisible(true);
