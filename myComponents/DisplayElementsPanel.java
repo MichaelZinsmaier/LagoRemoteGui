@@ -50,7 +50,7 @@ public class DisplayElementsPanel extends JPanel {
 	}
 	
 	public void updatePanel(DisplayElements el) {
-		_headLabel.setText("client: " + el._clientNr);
+		_headLabel.setText("Lago Server");
 		
 		if (el._valid) {
 			_pixelSizeLabel.setText("pixelSize: " + el._pixelSize);
