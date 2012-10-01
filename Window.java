@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -26,7 +25,6 @@ import javax.swing.JTextField;
 import myComponents.CurvePanelEnvironment;
 import myComponents.DisplayElementsPanel;
 import myComponents.LockGroup;
-
 import transmissions.DisplayElements;
 import transmissions.FOptions;
 import transmissions.ScalingOptions;
@@ -83,7 +81,7 @@ public class Window extends JFrame {
 	}
 	
 	private void populateBoxes(JComboBox box) {
-		final String PATH_TO_BASE_DIR = "../HGvis/HGvis/_Tex/colorSchemes" ;
+		final String PATH_TO_BASE_DIR = "../Lago/Lago/_Tex/colorSchemes" ;
 		File dir = new File(PATH_TO_BASE_DIR);
 
 		File[] filesInDir = dir.listFiles();
